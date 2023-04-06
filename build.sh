@@ -60,11 +60,19 @@ trap "rm -f -- '$BUILD_SCRIPT'" EXIT
 
 cat <<EOF >"$BUILD_SCRIPT"
     set -xe
+    
+    cd /ffbuild
+    git clone -b $GIT_BRANCH https://github.com/runner365/ffmpeg_rtmp_h265
+
     cd /ffbuild
     rm -rf ffmpeg prefix
 
     git clone --filter=blob:none --branch='$GIT_BRANCH' '$FFMPEG_REPO' ffmpeg
     cd ffmpeg
+    
+    \cp /ffbuild/ffmpeg_rtmp_h265/flv.h ./libavformat/flv.h
+    \cp /ffbuild/ffmpeg_rtmp_h265/flvdec.c ./libavformat/flvdec.c
+    \cp /ffbuild/ffmpeg_rtmp_h265/flvenc.c ./libavformat/flvenc.c
 
     ./configure --prefix=/ffbuild/prefix --pkg-config-flags="--static" \$FFBUILD_TARGET_FLAGS $FF_CONFIGURE \
         --extra-cflags='$FF_CFLAGS' --extra-cxxflags='$FF_CXXFLAGS' \
