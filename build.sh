@@ -54,6 +54,7 @@ FFMPEG_REPO="${FFMPEG_REPO:-https://github.com/FFmpeg/FFmpeg.git}"
 FFMPEG_REPO="${FFMPEG_REPO_OVERRIDE:-$FFMPEG_REPO}"
 GIT_BRANCH="${GIT_BRANCH:-master}"
 GIT_BRANCH="${GIT_BRANCH_OVERRIDE:-$GIT_BRANCH}"
+VERSION=$(echo "$GIT_BRANCH" | cut -d'/' -f2)
 
 BUILD_SCRIPT="$(mktemp)"
 trap "rm -f -- '$BUILD_SCRIPT'" EXIT
@@ -62,7 +63,7 @@ cat <<EOF >"$BUILD_SCRIPT"
     set -xe
     
     cd /ffbuild
-    git clone -b $GIT_BRANCH https://github.com/runner365/ffmpeg_rtmp_h265
+    git clone -b $VERSION https://github.com/runner365/ffmpeg_rtmp_h265
 
     cd /ffbuild
     rm -rf ffmpeg prefix
