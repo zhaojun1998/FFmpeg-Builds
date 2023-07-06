@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_REPO="https://github.com/kcat/openal-soft.git"
-SCRIPT_COMMIT="186a29b77d8ec01c14d13797f9d51c7c21b22b60"
+SCRIPT_COMMIT="a49b612ef470003ffb16ddc5e19c9a1984a71619"
 
 ffbuild_enabled() {
     [[ $ADDINS_STR == *4.4* ]] && return -1
@@ -11,8 +11,7 @@ ffbuild_enabled() {
 }
 
 ffbuild_dockerbuild() {
-    git-mini-clone "$SCRIPT_REPO" "$SCRIPT_COMMIT" openal
-    cd openal
+    cd "$FFBUILD_DLDIR/$SELF"
 
     mkdir cm_build && cd cm_build
 

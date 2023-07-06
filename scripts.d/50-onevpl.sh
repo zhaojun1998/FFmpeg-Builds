@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_REPO="https://github.com/oneapi-src/oneVPL.git"
-SCRIPT_COMMIT="4cdf44ccaa605460499c52f39eff5517da2fc3c8"
+SCRIPT_COMMIT="e12ace9761bb52786409e830f619916b86e87fc5"
 
 ffbuild_enabled() {
     [[ $TARGET == *arm64 ]] && return -1
@@ -12,8 +12,7 @@ ffbuild_enabled() {
 }
 
 ffbuild_dockerbuild() {
-    git-mini-clone "$SCRIPT_REPO" "$SCRIPT_COMMIT" onevpl
-    cd onevpl
+    cd "$FFBUILD_DLDIR/$SELF"
 
     mkdir build && cd build
 
